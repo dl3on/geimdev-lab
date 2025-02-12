@@ -10,9 +10,10 @@ public class MarioMode : PlayerMovement
         void Start()
     {
         base.Start();
+        characterBody = GetComponent<Rigidbody2D>();
+        characterSprite = GetComponent<SpriteRenderer>();
         speed = 10;
         maxSpeed = 20;
         upSpeed = 9;
-        Debug.Log("Mario mode!");
     }
 }

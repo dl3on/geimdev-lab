@@ -10,6 +10,8 @@ public class BowserMode : PlayerMovement
         void Start()
     {
         base.Start();
+        characterBody = GetComponent<Rigidbody2D>();
+        characterSprite = GetComponent<SpriteRenderer>();
         speed = 5;
         maxSpeed = 10;
         upSpeed = 12;
