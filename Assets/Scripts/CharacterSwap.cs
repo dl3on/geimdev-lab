@@ -6,8 +6,8 @@ using UnityEngine.U2D.Animation;
 
 public class CharacterSwap : MonoBehaviour
 {
-    public GameObject marioPrefab;
-    public GameObject bowserPrefab;
+    public GameObject mario;
+    public GameObject bowser;
     public GameObject activeCharacter;
     public static PlayerMovement activePlayerMovement;
     private bool faceLeft;
@@ -26,15 +26,15 @@ public class CharacterSwap : MonoBehaviour
             activeCharacter.SetActive(false);
 
             // Switch characters    
-            if (activeCharacter == marioPrefab)
+            if (activeCharacter == mario)
             {
-                activeCharacter = bowserPrefab;
+                activeCharacter = bowser;
                 currPos.y += 2.0f;
                 Debug.Log("Bowser Mode!");
             }
             else
             {
-                activeCharacter = marioPrefab;
+                activeCharacter = mario;
                 Debug.Log("Mario Mode!");
             }
             activeCharacter.transform.position = currPos;
@@ -46,12 +46,14 @@ public class CharacterSwap : MonoBehaviour
             activePlayerMovement = activeCharacter.GetComponent<PlayerMovement>();
             activePlayerMovement.onGroundState = false;
 
+            activePlayerMovement.UpdateCharacterReferences(activeCharacter);
+
             // restart animations
-            Animator animator = activeCharacter.GetComponent<Animator>();
-            animator.enabled = false;
-            animator.Rebind();
-            animator.Update(0);
-            animator.enabled = true;
+            // Animator animator = activeCharacter.GetComponent<Animator>();
+            // animator.enabled = false;
+            // animator.Rebind();
+            // animator.Update(0);
+            // animator.enabled = true;
             //activePlayerMovement.characterSprite.flipX = faceLeft;
         }
     }

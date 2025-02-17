@@ -61,7 +61,7 @@ public class Reset : MonoBehaviour
         bowser.characterBody.linearVelocity = Vector2.zero;
 
         // reset animation
-        playerMovement.marioAnimator.SetTrigger("gameRestart");
+        playerMovement.charaAnimator.SetTrigger("gameRestart");
         playerMovement.alive = true;
 
         // reset camera position
