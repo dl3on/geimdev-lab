@@ -164,6 +164,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 152429568}
     m_Modifications:
+    - target: {fileID: 57712491142900447, guid: 245adcd4175696b429cbe51955341d57, type: 3}
+      propertyPath: useInt.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276219826}
     - target: {fileID: 2576694367730699530, guid: 245adcd4175696b429cbe51955341d57, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.593895
@@ -856,8 +860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc038980e69e83b4c90268ee36347a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1418001014}
-  reset: {fileID: 1276219823}
+  finalScoreText: {fileID: 1418001014}
+  gameManager: {fileID: 1276219826}
 --- !u!114 &388060723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,6 +948,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5120459703925308901, guid: fa1a38481dbe9e44daaa9eb192f3830d, type: 3}
+      propertyPath: characterSwap
+      value: 
+      objectReference: {fileID: 999416494}
     - target: {fileID: 7833254750518307540, guid: fa1a38481dbe9e44daaa9eb192f3830d, type: 3}
       propertyPath: m_Name
       value: Goomba (1)
@@ -1508,7 +1516,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000ab5787ec55418a4593292b86f5c0012f55e8e3931505f7c0
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1603,6 +1611,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5120459703925308901, guid: fa1a38481dbe9e44daaa9eb192f3830d, type: 3}
+      propertyPath: characterSwap
+      value: 
+      objectReference: {fileID: 999416494}
     - target: {fileID: 7833254750518307540, guid: fa1a38481dbe9e44daaa9eb192f3830d, type: 3}
       propertyPath: m_Name
       value: Goomba (2)
@@ -1866,10 +1878,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 388060722}
-        m_TargetAssemblyTypeName: GameOverScreen, Assembly-CSharp
-        m_MethodName: ResetButtonCallback
-        m_Mode: 3
+      - m_Target: {fileID: 1276219826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GameRestart
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1962,8 +1974,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d74d91b3ecf7046aa1eb7e2bc182d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  marioPrefab: {fileID: 2029664616}
-  bowserPrefab: {fileID: 908718960}
+  mario: {fileID: 2029664616}
+  bowser: {fileID: 908718960}
   speed: 10
   upSpeed: 10
   maxSpeed: 20
@@ -1974,9 +1986,10 @@ MonoBehaviour:
   faceLeftState: 0
   scoreText: {fileID: 147189965}
   enemies: {fileID: 822223374}
-  jumpOverGoomba: {fileID: 1276219824}
+  jumpOverGoomba: {fileID: 999416496}
   gameOverScreen: {fileID: 388060722}
   characterSwap: {fileID: 999416494}
+  gameManager: {fileID: 1276219826}
   charaAudio: {fileID: 908718967}
   charaDeath: {fileID: 8300000, guid: 52ece419e7d5a98469b4311336a8b035, type: 3}
   deathImpulse: 15
@@ -2382,8 +2395,40 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c87e7612-4fa1-484b-b6bf-52db41334057
     m_ActionName: 'gameplay/move[/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 908718968}
+        m_TargetAssemblyTypeName: ActionManager, Assembly-CSharp
+        m_MethodName: OnClickAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fe7b24ee-a914-4ee7-a9d9-5df8c7be5659
+    m_ActionName: 'gameplay/click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 908718968}
+        m_TargetAssemblyTypeName: ActionManager, Assembly-CSharp
+        m_MethodName: OnPointAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b32b481a-3375-4877-a0f6-87b38943b499
+    m_ActionName: 'gameplay/point[/Mouse/leftButton,/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: keyboard
+  m_DefaultControlScheme: MarioBowserFriends
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -2397,6 +2442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 999416495}
   - component: {fileID: 999416494}
+  - component: {fileID: 999416496}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -2435,6 +2481,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &999416496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999416493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5c3c496d4d3134b92b64684df2cd30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyLocation: {fileID: 822223375}
+  scoreText: {fileID: 147189965}
+  boxSize: {x: 0.5, y: 0.5, z: 0}
+  maxDistance: 0.55
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  characterSwap: {fileID: 999416494}
 --- !u!1 &1058967513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2818,57 +2884,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276219825}
-  - component: {fileID: 1276219824}
-  - component: {fileID: 1276219823}
+  - component: {fileID: 1276219826}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1276219823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276219822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd3c46cfd6248e543a747b86a50782fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  marioPrefab: {fileID: 2029664616}
-  bowserPrefab: {fileID: 908718960}
-  activeCharacter: {fileID: 2029664616}
-  lakitusCloud: {fileID: 2015785890}
-  scoreText: {fileID: 147189965}
-  enemies: {fileID: 822223374}
-  jumpOverGoomba: {fileID: 1276219824}
-  mario: {fileID: 2029664622}
-  bowser: {fileID: 908718961}
-  gameCamera: {fileID: 519420032}
---- !u!114 &1276219824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276219822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc5c3c496d4d3134b92b64684df2cd30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyLocation: {fileID: 822223375}
-  scoreText: {fileID: 147189965}
-  boxSize: {x: 0.5, y: 0.5, z: 0}
-  maxDistance: 0.55
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  characterSwap: {fileID: 999416494}
 --- !u!4 &1276219825
 Transform:
   m_ObjectHideFlags: 0
@@ -2884,6 +2907,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276219826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276219822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb13392995dcef4292adaaa69f0b3b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1882123927}
+        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+        m_MethodName: GameStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  gameRestart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1882123927}
+        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+        m_MethodName: GameStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1838374453}
+        m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
+        m_MethodName: GameRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1447028996}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: GameRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  scoreChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1882123927}
+        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+        m_MethodName: SetScore
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  gameOver:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1882123927}
+        m_TargetAssemblyTypeName: HUDManager, Assembly-CSharp
+        m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  gameCamera: {fileID: 519420032}
 --- !u!4 &1344282593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2576694367730699530, guid: 245adcd4175696b429cbe51955341d57, type: 3}
@@ -2972,6 +3092,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 152429568}
     m_Modifications:
+    - target: {fileID: 57712491142900447, guid: 245adcd4175696b429cbe51955341d57, type: 3}
+      propertyPath: useInt.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276219826}
     - target: {fileID: 2576694367730699530, guid: 245adcd4175696b429cbe51955341d57, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.58276
@@ -3170,6 +3294,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 152429568}
     m_Modifications:
+    - target: {fileID: 57712491142900447, guid: 245adcd4175696b429cbe51955341d57, type: 3}
+      propertyPath: useInt.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276219826}
     - target: {fileID: 2576694367730699530, guid: 245adcd4175696b429cbe51955341d57, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.5797596
@@ -3228,6 +3356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1447028995}
+  - component: {fileID: 1447028996}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -3254,6 +3383,19 @@ Transform:
   - {fileID: 650165680}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1447028996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447028994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cc0afdbd95a9446927bad068afbb57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lakitusCloud: {fileID: 2015785890}
 --- !u!1 &1460438899
 GameObject:
   m_ObjectHideFlags: 0
@@ -3485,8 +3627,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 879, y: 504}
-  m_SizeDelta: {x: 100, y: 30}
+  m_AnchoredPosition: {x: 851.63, y: 491.5}
+  m_SizeDelta: {x: 154.75, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1610654226
 MonoBehaviour:
@@ -3532,10 +3674,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276219823}
-        m_TargetAssemblyTypeName: Reset, Assembly-CSharp
-        m_MethodName: ResetButtonCallback
-        m_Mode: 3
+      - m_Target: {fileID: 1276219826}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GameRestart
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4002,6 +4144,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5120459703925308901, guid: fa1a38481dbe9e44daaa9eb192f3830d, type: 3}
+      propertyPath: characterSwap
+      value: 
+      objectReference: {fileID: 999416494}
     - target: {fileID: 7833254750518307540, guid: fa1a38481dbe9e44daaa9eb192f3830d, type: 3}
       propertyPath: m_Name
       value: Goomba (0)
@@ -4204,6 +4350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1838374452}
+  - component: {fileID: 1838374453}
   m_Layer: 0
   m_Name: Characters
   m_TagString: Untagged
@@ -4228,6 +4375,18 @@ Transform:
   - {fileID: 908718965}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1838374453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838374451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4f0efa18c9fba4c8e46fa9095b8c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882123922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4240,6 +4399,7 @@ GameObject:
   - component: {fileID: 1882123925}
   - component: {fileID: 1882123924}
   - component: {fileID: 1882123923}
+  - component: {fileID: 1882123927}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4308,7 +4468,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &1882123926
 RectTransform:
@@ -4332,6 +4492,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1882123927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882123922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6690f0ae2101224c9f94c5d849a4f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 147189963}
+  restartButton: {fileID: 1610654225}
+  gameOverPanel: {fileID: 388060720}
 --- !u!4 &1922768846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2576694367730699530, guid: 245adcd4175696b429cbe51955341d57, type: 3}
@@ -4837,8 +5012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3641e1e40ba26684d860f3dd3b83df4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  marioPrefab: {fileID: 2029664616}
-  bowserPrefab: {fileID: 908718960}
+  mario: {fileID: 2029664616}
+  bowser: {fileID: 908718960}
   speed: 10
   upSpeed: 10
   maxSpeed: 20
@@ -4849,9 +5024,10 @@ MonoBehaviour:
   faceLeftState: 0
   scoreText: {fileID: 147189965}
   enemies: {fileID: 822223374}
-  jumpOverGoomba: {fileID: 1276219824}
+  jumpOverGoomba: {fileID: 999416496}
   gameOverScreen: {fileID: 388060722}
   characterSwap: {fileID: 999416494}
+  gameManager: {fileID: 1276219826}
   charaAudio: {fileID: 2029664624}
   charaDeath: {fileID: 8300000, guid: 52ece419e7d5a98469b4311336a8b035, type: 3}
   deathImpulse: 15
@@ -5047,8 +5223,40 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c87e7612-4fa1-484b-b6bf-52db41334057
     m_ActionName: 'gameplay/move[/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2029664626}
+        m_TargetAssemblyTypeName: ActionManager, Assembly-CSharp
+        m_MethodName: OnClickAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fe7b24ee-a914-4ee7-a9d9-5df8c7be5659
+    m_ActionName: 'gameplay/click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2029664626}
+        m_TargetAssemblyTypeName: ActionManager, Assembly-CSharp
+        m_MethodName: OnPointAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b32b481a-3375-4877-a0f6-87b38943b499
+    m_ActionName: 'gameplay/point[/Mouse/leftButton,/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: keyboard
+  m_DefaultControlScheme: MarioBowserFriends
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -5336,11 +5544,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa1a38481dbe9e44daaa9eb192f3830d, type: 3}
---- !u!1 &1118869011565058122 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5840632350032249318, guid: e871498e307c4da4fb8bf964f36609bd, type: 3}
-  m_PrefabInstance: {fileID: 8690951635535556730}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1342222486705868613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 551929443581298473, guid: ccb2b25824dc48b47a6ccd60ddfc5a59, type: 3}
@@ -5415,6 +5618,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 152429568}
     m_Modifications:
+    - target: {fileID: 57712491142900447, guid: 245adcd4175696b429cbe51955341d57, type: 3}
+      propertyPath: useInt.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276219826}
     - target: {fileID: 2576694367730699530, guid: 245adcd4175696b429cbe51955341d57, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.48
@@ -5530,17 +5737,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46f58862d60273a4b987f887290bb907, type: 3}
---- !u!114 &7936117294794387809 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7998863537927195605, guid: e871498e307c4da4fb8bf964f36609bd, type: 3}
-  m_PrefabInstance: {fileID: 8690951635535556730}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 940d1af5977c2d24e926523777be0a03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8678085291177883500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5654,35 +5850,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brick-Coin
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6125240021117706287, guid: e871498e307c4da4fb8bf964f36609bd, type: 3}
+    - target: {fileID: 9019460822790605751, guid: e871498e307c4da4fb8bf964f36609bd, type: 3}
+      propertyPath: useInt.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276219826}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5840632350032249318, guid: e871498e307c4da4fb8bf964f36609bd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8772450172572165559}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e871498e307c4da4fb8bf964f36609bd, type: 3}
---- !u!95 &8754996043715516697 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 754006824450079877, guid: e871498e307c4da4fb8bf964f36609bd, type: 3}
-  m_PrefabInstance: {fileID: 8690951635535556730}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8772450172572165559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118869011565058122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79cd92e2c4520d646a1d693af7533ba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockAnimator: {fileID: 8754996043715516697}
-  coin: {fileID: 7936117294794387809}
-  claimed: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

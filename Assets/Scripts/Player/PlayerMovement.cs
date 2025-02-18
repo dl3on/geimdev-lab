@@ -5,8 +5,8 @@ using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject marioPrefab;
-    public GameObject bowserPrefab;
+    public GameObject mario;
+    public GameObject bowser;
     public float speed = 10;
     public float upSpeed = 10;
     public float maxSpeed = 20;
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public JumpOverGoomba jumpOverGoomba;
     public GameOverScreen gameOverScreen;
     public CharacterSwap characterSwap;
+    public GameManager gameManager;
 
     // for audio
     public AudioSource charaAudio;
@@ -151,12 +152,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Collided with goomba!");
             Debug.Log(characterSwap.activeCharacter.name);
-            if (characterSwap.activeCharacter == marioPrefab)
+            if (characterSwap.activeCharacter == mario)
             {
                 PlayDeathImpulse();
                 alive = false;
                 Time.timeScale = 0.0f;
-                GameOver();
+                gameManager.GameOver();
             }
         }
     }
@@ -174,9 +175,13 @@ public class PlayerMovement : MonoBehaviour
         charaAudio.PlayOneShot(charaDeath);
     }
 
-    protected void GameOver()
+    public void GameRestart()
     {
-        gameOverScreen.Setup(jumpOverGoomba.score);
+        characterBody.transform.position = new Vector3(0.02f, 1.57f, 0.0f);
+        characterBody.linearVelocity = Vector2.zero;
+        faceLeftState = false;
+        characterSprite.flipX = false;
+        charaAnimator.SetTrigger("gameRestart");
+        alive = true;
     }
-
 }

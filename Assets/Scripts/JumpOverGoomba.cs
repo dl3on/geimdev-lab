@@ -17,11 +17,12 @@ public class JumpOverGoomba : MonoBehaviour
     public float maxDistance;
     public LayerMask layerMask;
     public CharacterSwap characterSwap;
+    GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -45,11 +46,19 @@ public class JumpOverGoomba : MonoBehaviour
             if (Mathf.Abs(characterSwap.activeCharacter.transform.position.x - enemyLocation.position.x) < 0.2f)
             {
                 countScoreState = false;
-                score++;
-                scoreText.text = "Score: " + score.ToString();
-                Debug.Log(score);
+                gameManager.IncreaseScore(1);
             }
         }
+
+        // // when jumping, and Goomba is near Mario and we haven't registered our score
+        // if (!onGroundState && countScoreState)
+        // {
+        //     if (Mathf.Abs(transform.position.x - enemyLocation.position.x) < 0.5f)
+        //     {
+        //         countScoreState = false;
+        //         gameManager.IncreaseScore(1); //
+        //     }
+        // }
     }
 
     void OnCollisionEnter2D(Collision2D col)
