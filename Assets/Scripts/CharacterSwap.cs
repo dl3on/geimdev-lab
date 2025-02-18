@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.U2D.Animation;
+using UnityEngine.InputSystem;
 
 public class CharacterSwap : MonoBehaviour
 {
@@ -11,9 +12,27 @@ public class CharacterSwap : MonoBehaviour
     public GameObject activeCharacter;
     public static PlayerMovement activePlayerMovement;
     private bool faceLeft;
+    private PlayerInput marioInput;
+    private PlayerInput bowserInput;
+    [SerializeField] private InputActionAsset inputActionAsset;
     void Start()
     {
+        Debug.Log("CS START");
         activePlayerMovement = activeCharacter.GetComponent<PlayerMovement>();
+
+        // Get PlayerInput components
+        marioInput = mario.GetComponent<PlayerInput>();
+        bowserInput = bowser.GetComponent<PlayerInput>();
+
+        // Set Mario to be active first
+        bowserInput.enabled = false;
+        bowser.SetActive(false);
+        activeCharacter = mario;
+
+        if (marioInput.actions != inputActionAsset)
+        {
+            marioInput.actions = inputActionAsset;
+        }
     }
 
     void Update()
@@ -29,22 +48,41 @@ public class CharacterSwap : MonoBehaviour
             if (activeCharacter == mario)
             {
                 activeCharacter = bowser;
+                marioInput.enabled = false;
+                bowserInput.enabled = true;
                 currPos.y += 2.0f;
                 Debug.Log("Bowser Mode!");
             }
             else
             {
                 activeCharacter = mario;
+                marioInput.enabled = true;
+                bowserInput.enabled = false;
                 Debug.Log("Mario Mode!");
             }
             activeCharacter.transform.position = currPos;
 
-            //faceLeft = activePlayerMovement.faceLeftState ? true : false;
+            faceLeft = activePlayerMovement.faceLeftState ? true : false;
+
             activeCharacter.SetActive(true);
+
+            // Ensure the correct input action asset is used
+            if (marioInput.actions != inputActionAsset && activeCharacter == mario)
+            {
+                marioInput.actions = inputActionAsset;
+            }
+            if (bowserInput.actions != inputActionAsset && activeCharacter == bowser)
+            {
+                bowserInput.actions = inputActionAsset;
+            }
 
             // reset ground state
             activePlayerMovement = activeCharacter.GetComponent<PlayerMovement>();
             activePlayerMovement.onGroundState = false;
+
+            // set face direction
+            activePlayerMovement.faceLeftState = faceLeft;
+            activePlayerMovement.characterSprite.flipX = faceLeft;
 
             activePlayerMovement.UpdateCharacterReferences(activeCharacter);
 
@@ -54,7 +92,6 @@ public class CharacterSwap : MonoBehaviour
             // animator.Rebind();
             // animator.Update(0);
             // animator.enabled = true;
-            //activePlayerMovement.characterSprite.flipX = faceLeft;
         }
     }
 }

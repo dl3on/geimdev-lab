@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Numerics;
 
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject marioPrefab;
     public GameObject bowserPrefab;
-    private bool isBowser = false;
     public float speed = 10;
     public float upSpeed = 10;
     public float maxSpeed = 20;
@@ -40,45 +38,11 @@ public class PlayerMovement : MonoBehaviour
         // Set to be 30 FPS
         Application.targetFrameRate = 30;
         charaAnimator.SetBool("onGround", onGroundState);
-
-        if (isBowser == false)
-        {
-            bowserPrefab.SetActive(false);
-            characterSwap.activeCharacter = marioPrefab;
-        }
-        else
-        {
-            marioPrefab.SetActive(false);
-            characterSwap.activeCharacter = bowserPrefab;
-        }
     }
 
     // Update is called once per frame
     protected void Update()
     {
-        // toggle state
-        // if (Input.GetKeyDown("a") && !faceLeftState)
-        // {
-        //     faceLeftState = true;
-        //     characterSprite.flipX = true;
-
-        //     if (characterBody.linearVelocity.x > 0.1f)
-        //     {
-        //         charaAnimator.SetTrigger("onSkid");
-        //     }
-        // }
-
-        // if (Input.GetKeyDown("d") && faceLeftState)
-        // {
-        //     faceLeftState = false;
-        //     characterSprite.flipX = false;
-
-        //     if (characterBody.linearVelocity.x < -0.1f)
-        //     {
-        //         charaAnimator.SetTrigger("onSkid");
-        //     }
-        // }
-
         charaAnimator.SetFloat("xSpeed", Mathf.Abs(characterBody.linearVelocity.x));
     }
 
@@ -88,33 +52,6 @@ public class PlayerMovement : MonoBehaviour
         if (alive && moving)
         {
             Move(faceLeftState == true ? -1 : 1);
-            // float moveHorizontal = Input.GetAxisRaw("Horizontal");
-            // if (Mathf.Abs(moveHorizontal) > 0)
-            // {
-            //     Vector2 movement = new Vector2(moveHorizontal, 0);
-            //     // check if it doesn't go beyond maxSpeed
-            //     if (characterBody.linearVelocity.magnitude < maxSpeed)
-            //     {
-            //         characterBody.AddForce(movement * speed);
-            //         // Update animation state
-            //         charaAnimator.SetFloat("xSpeed", Mathf.Abs(characterBody.linearVelocity.x));
-            //     }
-            // }
-
-            // stop
-            // if (Input.GetKeyUp("a") || Input.GetKeyUp("d"))
-            // {
-            //     // stop
-            //     characterBody.linearVelocity = Vector2.zero;
-            // }
-
-            // // jump
-            // if (Input.GetKeyDown("space") && onGroundState)
-            // {
-            //     characterBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
-            //     onGroundState = false;
-            //     charaAnimator.SetBool("onGround", onGroundState);
-            // }
         }
     }
 
@@ -150,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(int value)
     {
-        UnityEngine.Vector2 movement = new UnityEngine.Vector2(value, 0);
+        Vector2 movement = new Vector2(value, 0);
         // check if it doesn't go beyond maxSpeed
         if (characterBody.linearVelocity.magnitude < maxSpeed)
         {
@@ -179,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         if (alive && onGroundState)
         {
             // jump
-            characterBody.AddForce(UnityEngine.Vector2.up * upSpeed, ForceMode2D.Impulse);
+            characterBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
             onGroundState = false;
             jumpedState = true;
             charaAnimator.SetBool("onGround", onGroundState);
@@ -191,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         if (alive && jumpedState)
         {
             // jump higher
-            characterBody.AddForce(UnityEngine.Vector2.up * upSpeed * 5, ForceMode2D.Force);
+            characterBody.AddForce(5 * upSpeed * Vector2.up, ForceMode2D.Force);
             jumpedState = false;
 
         }
@@ -216,8 +153,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(characterSwap.activeCharacter.name);
             if (characterSwap.activeCharacter == marioPrefab)
             {
-                // charaAnimator.Play("mario-die");
-                // charaAudio.PlayOneShot(charaDeath);
                 PlayDeathImpulse();
                 alive = false;
                 Time.timeScale = 0.0f;
@@ -234,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayDeathImpulse()
     {
-        characterBody.AddForce(UnityEngine.Vector2.up * deathImpulse, ForceMode2D.Impulse);
+        characterBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
         charaAnimator.Play("mario-die");
         charaAudio.PlayOneShot(charaDeath);
     }

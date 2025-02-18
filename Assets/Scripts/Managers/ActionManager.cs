@@ -6,8 +6,12 @@ using UnityEngine.InputSystem;
 public class ActionManager : MonoBehaviour
 {
     public UnityEvent jump;
+    public UnityEvent jump2;
     public UnityEvent jumpHold;
+    public UnityEvent jumpHold2;
     public UnityEvent<int> moveCheck;
+    public UnityEvent<int> moveCheck2;
+    public CharacterSwap characterSwap;
 
     public void OnJumpHoldAction(InputAction.CallbackContext context)
     {
@@ -17,7 +21,10 @@ public class ActionManager : MonoBehaviour
         {
             Debug.Log("JumpHold was performed");
             Debug.Log(context.duration);
-            jumpHold.Invoke();
+            if (characterSwap.activeCharacter.name == "Mario")
+                jumpHold.Invoke();
+            else
+                jumpHold2.Invoke();
         }
         else if (context.canceled)
             Debug.Log("JumpHold was cancelled");
@@ -30,7 +37,10 @@ public class ActionManager : MonoBehaviour
             Debug.Log("Jump was started");
         else if (context.performed)
         {
-            jump.Invoke();
+            if (characterSwap.activeCharacter.name == "Mario")
+                jump.Invoke();
+            else
+                jump2.Invoke();
             Debug.Log("Jump was performed");
         }
         else if (context.canceled)
@@ -46,12 +56,19 @@ public class ActionManager : MonoBehaviour
         {
             Debug.Log("move started");
             int faceRight = context.ReadValue<float>() > 0 ? 1 : -1;
-            moveCheck.Invoke(faceRight);
+
+            if (characterSwap.activeCharacter.name == "Mario")
+                moveCheck.Invoke(faceRight);
+            else
+                moveCheck2.Invoke(faceRight);
         }
         if (context.canceled)
         {
             Debug.Log("move stopped");
-            moveCheck.Invoke(0);
+            if (characterSwap.activeCharacter.name == "Mario")
+                moveCheck.Invoke(0);
+            else
+                moveCheck2.Invoke(0);
         }
 
     }

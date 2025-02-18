@@ -623,6 +623,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3327951445014164440, guid: 46f58862d60273a4b987f887290bb907, type: 3}
   m_PrefabInstance: {fileID: 215561159}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &224218624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1486412383517546205, guid: ccb2b25824dc48b47a6ccd60ddfc5a59, type: 3}
+  m_PrefabInstance: {fileID: 8678085291177883500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &224218632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224218624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: defbce0de8a7841419b1731703a74d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockAnimator: {fileID: 0}
 --- !u!1 &289049893
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,6 +2256,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jump:
     m_PersistentCalls:
+      m_Calls: []
+  jump2:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 908718961}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
@@ -2252,6 +2273,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   jumpHold:
+    m_PersistentCalls:
+      m_Calls: []
+  jumpHold2:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 908718961}
@@ -2268,6 +2292,9 @@ MonoBehaviour:
         m_CallState: 2
   moveCheck:
     m_PersistentCalls:
+      m_Calls: []
+  moveCheck2:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 908718961}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
@@ -2281,6 +2308,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  characterSwap: {fileID: 999416494}
 --- !u!114 &908718969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2391,6 +2419,7 @@ MonoBehaviour:
   mario: {fileID: 2029664616}
   bowser: {fileID: 908718960}
   activeCharacter: {fileID: 2029664616}
+  inputActionAsset: {fileID: -944628639613478452, guid: d1897754c1a190b43a2d99d72b98c8a0, type: 3}
 --- !u!4 &999416495
 Transform:
   m_ObjectHideFlags: 0
@@ -5050,6 +5079,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  jump2:
+    m_PersistentCalls:
+      m_Calls: []
   jumpHold:
     m_PersistentCalls:
       m_Calls:
@@ -5065,6 +5097,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  jumpHold2:
+    m_PersistentCalls:
+      m_Calls: []
   moveCheck:
     m_PersistentCalls:
       m_Calls:
@@ -5080,6 +5115,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  moveCheck2:
+    m_PersistentCalls:
+      m_Calls: []
+  characterSwap: {fileID: 999416494}
 --- !u!1 &2066646315
 GameObject:
   m_ObjectHideFlags: 0
@@ -5554,10 +5593,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2922228579898324772, guid: ccb2b25824dc48b47a6ccd60ddfc5a59, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1486412383517546205, guid: ccb2b25824dc48b47a6ccd60ddfc5a59, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 224218632}
   m_SourcePrefab: {fileID: 100100000, guid: ccb2b25824dc48b47a6ccd60ddfc5a59, type: 3}
 --- !u!1001 &8690951635535556730
 PrefabInstance:
