@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Manager
+  - StompTrigger
   layers:
   - Default
   - TransparentFX
@@ -42,6 +44,24 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 1166688597
+    locked: 0
+  - name: Enemies
+    uniqueID: 2250975635
+    locked: 0
+  - name: Obstacles
+    uniqueID: 788644085
+    locked: 0
+  - name: Player
+    uniqueID: 2481186901
+    locked: 0
+  - name: Cloud
+    uniqueID: 3237414165
+    locked: 0
+  - name: UI
+    uniqueID: 3968292779
     locked: 0
   m_RenderingLayers:
   - Default

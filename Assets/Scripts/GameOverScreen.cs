@@ -4,19 +4,15 @@ using TMPro;
 
 public class GameOverScreen : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
-    public Reset reset;
-    public void Setup(int score)
+    public TextMeshProUGUI finalScoreText;
+    public GameManager gameManager;
+    public void Setup(string text)
     {
-        gameObject.SetActive(true);
-        scoreText.text = "Score: " + score.ToString();
+        finalScoreText.text = text;
     }
 
     public void ResetButtonCallback(int input)
     {
-        Debug.Log("to reset");
-        reset.ResetButtonCallback(input);
-        Debug.Log("reseted");
-        gameObject.SetActive(false);
+        gameManager.gameRestart.Invoke();
     }
 }

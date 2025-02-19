@@ -6,7 +6,6 @@ using TMPro;
 public class BrickEmpty : MonoBehaviour
 {
     public Animator blockAnimator;
-    public Coin coin;
     void Start()
     {
         blockAnimator = GetComponent<Animator>();

@@ -5,13 +5,14 @@ using TMPro;
 
 public class MarioMode : PlayerMovement
 {
-    new
-        // Start is called before the first frame update
-        void Start()
+    //new
+    // Start is called before the first frame update
+    protected override void Start()
     {
         base.Start();
         characterBody = GetComponent<Rigidbody2D>();
         characterSprite = GetComponent<SpriteRenderer>();
+        charaAnimator = GetComponent<Animator>();
         speed = 10;
         maxSpeed = 20;
         upSpeed = 9;

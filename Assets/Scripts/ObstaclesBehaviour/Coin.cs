@@ -23,5 +23,14 @@ public class Coin : MonoBehaviour
     private void PlayCoinSound()
     {
         coinAudio.PlayOneShot(coinAudio.clip);
+
+        // disable coin upon collection
+        StartCoroutine(DisableAfterSound());
+    }
+
+    IEnumerator DisableAfterSound()
+    {
+        yield return new WaitForSeconds(coinAudio.clip.length);  // Wait for sound to finish
+        gameObject.SetActive(false);
     }
 }
