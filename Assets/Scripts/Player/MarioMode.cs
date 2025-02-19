@@ -5,9 +5,9 @@ using TMPro;
 
 public class MarioMode : PlayerMovement
 {
-    new
-        // Start is called before the first frame update
-        void Start()
+    //new
+    // Start is called before the first frame update
+    protected override void Start()
     {
         base.Start();
         characterBody = GetComponent<Rigidbody2D>();

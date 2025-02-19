@@ -470,15 +470,15 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.3333334
-    functionName: PlayCoinSound
+  - time: 1.3
+    functionName: TriggerIntEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.35
-    functionName: TriggerIntEvent
+  - time: 1.3333334
+    functionName: PlayCoinSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

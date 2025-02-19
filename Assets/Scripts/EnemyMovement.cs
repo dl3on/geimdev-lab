@@ -14,6 +14,9 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D enemyBody;
     public CharacterSwap characterSwap;
 
+    // Audio
+    public AudioSource enemyStomp;
+
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
@@ -81,6 +84,11 @@ public class EnemyMovement : MonoBehaviour
         {
             isTerrified = true;
         }
+    }
+
+    void PlayStompedSound()
+    {
+        enemyStomp.PlayOneShot(enemyStomp.clip);
     }
 
     public void GameRestart()

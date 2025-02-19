@@ -19,14 +19,14 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpedState = false;
     public TextMeshProUGUI scoreText;
     public GameObject enemies;
-    public JumpOverGoomba jumpOverGoomba;
+    // public JumpOverEnemy jumpOverEnemy;
     public GameOverScreen gameOverScreen;
     public CharacterSwap characterSwap;
     public GameManager gameManager;
 
     // for audio
     public AudioSource charaAudio;
-    public AudioClip charaDeath;
+    public AudioSource charaDeath;
     public float deathImpulse = 15;
 
     // state
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public bool alive = true;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         // Set to be 30 FPS
         Application.targetFrameRate = 30;
@@ -148,7 +148,14 @@ public class PlayerMovement : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy") && alive)
+        if (other.gameObject.CompareTag("StompTrigger") && alive)
+        {
+            if (characterSwap.activeCharacter == mario)
+            {
+                characterBody.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+            }
+        }
+        else if (other.gameObject.CompareTag("Enemy") && alive)
         {
             Debug.Log("Collided with goomba!");
             Debug.Log(characterSwap.activeCharacter.name);
@@ -172,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
     {
         characterBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
         charaAnimator.Play("mario-die");
-        charaAudio.PlayOneShot(charaDeath);
+        charaDeath.PlayOneShot(charaDeath.clip);
     }
 
     public void GameRestart()

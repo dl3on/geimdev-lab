@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("GM gameover");
         Time.timeScale = 0.0f;
         gameOver.Invoke();
     }

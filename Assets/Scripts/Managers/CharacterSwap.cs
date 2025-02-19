@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.U2D.Animation;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio;
 
 public class CharacterSwap : MonoBehaviour
 {
@@ -15,14 +16,23 @@ public class CharacterSwap : MonoBehaviour
     private PlayerInput marioInput;
     private PlayerInput bowserInput;
     [SerializeField] private InputActionAsset inputActionAsset;
+
+    // Audio snapshots
+    public AudioMixer mixer;
+    private AudioMixerSnapshot marioSnapshot;
+    private AudioMixerSnapshot bowserSnapshot;
+
     void Start()
     {
-        Debug.Log("CS START");
         activePlayerMovement = activeCharacter.GetComponent<PlayerMovement>();
 
         // Get PlayerInput components
         marioInput = mario.GetComponent<PlayerInput>();
         bowserInput = bowser.GetComponent<PlayerInput>();
+
+        // Get audio snapshots
+        marioSnapshot = mixer.FindSnapshot("Default");
+        bowserSnapshot = mixer.FindSnapshot("Bowser");
 
         // Set Mario to be active first
         bowserInput.enabled = false;
@@ -51,6 +61,7 @@ public class CharacterSwap : MonoBehaviour
                 marioInput.enabled = false;
                 bowserInput.enabled = true;
                 currPos.y += 2.0f;
+                bowserSnapshot.TransitionTo(0.5f);
                 Debug.Log("Bowser Mode!");
             }
             else
@@ -58,6 +69,7 @@ public class CharacterSwap : MonoBehaviour
                 activeCharacter = mario;
                 marioInput.enabled = true;
                 bowserInput.enabled = false;
+                marioSnapshot.TransitionTo(0.5f);
                 Debug.Log("Mario Mode!");
             }
             activeCharacter.transform.position = currPos;
