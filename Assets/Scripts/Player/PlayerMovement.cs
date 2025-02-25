@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject enemies;
     // public JumpOverEnemy jumpOverEnemy;
     public GameOverScreen gameOverScreen;
-    public CharacterSwap characterSwap;
+    public CharacterManager characterManager;
     public GameManager gameManager;
 
     // for audio
@@ -39,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
         // Set to be 30 FPS
         Application.targetFrameRate = 30;
         charaAnimator.SetBool("onGround", onGroundState);
+
+        // subscribe to scene manager scene change
+        SceneManager.activeSceneChanged += SetStartingPosition;
     }
 
     // Update is called once per frame
@@ -150,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("StompTrigger") && alive)
         {
-            if (characterSwap.activeCharacter == mario)
+            if (characterManager.activeCharacter == mario)
             {
                 characterBody.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
             }
@@ -158,8 +160,8 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.CompareTag("Enemy") && alive)
         {
             Debug.Log("Collided with goomba!");
-            Debug.Log(characterSwap.activeCharacter.name);
-            if (characterSwap.activeCharacter == mario)
+            Debug.Log(characterManager.activeCharacter.name);
+            if (characterManager.activeCharacter == mario)
             {
                 PlayDeathImpulse();
                 alive = false;
@@ -190,5 +192,13 @@ public class PlayerMovement : MonoBehaviour
         characterSprite.flipX = false;
         charaAnimator.SetTrigger("gameRestart");
         alive = true;
+    }
+
+    public void SetStartingPosition(Scene current, Scene next)
+    {
+        if (next.name == "World 1-2")
+        {
+            characterBody.transform.localPosition = new Vector3(-15f, -10f, 0.0f);
+        }
     }
 }

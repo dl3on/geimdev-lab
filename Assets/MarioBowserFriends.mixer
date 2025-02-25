@@ -276,13 +276,12 @@ AudioMixerController:
   - guids:
     - 7196537307f874c4bb482b83ddb2a0e9
     - 647653def29905d4ea5a082447faf7fe
-    - f9c1e55b14fd8694da460e71e327e915
     - 9d6544e52db453b4c870b6151e26160d
+    - cc01d63d325948e478af4b02c2e537cb
     - 3d00376fb3806e34e99df50beaa2e224
     - 7723101bfd38a2243b24473976cd3f90
     - 7e50f0abbaac20a4b98418821c87a4c9
     - 38dd38c2ec4d36f45a9abcab19c928f3
-    - cc01d63d325948e478af4b02c2e537cb
     name: All
   - guids:
     - 7196537307f874c4bb482b83ddb2a0e9
@@ -292,7 +291,7 @@ AudioMixerController:
     - cc01d63d325948e478af4b02c2e537cb
     name: SFX Only
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: -4818856080681206524}
+  m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0

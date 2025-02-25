@@ -62,7 +62,7 @@ public class JumpOverEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.name == "Mario")
         {
             Debug.Log("STOMPED BY: " + other.gameObject.name);
             //countScoreState = false;

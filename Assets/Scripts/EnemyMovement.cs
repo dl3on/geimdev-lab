@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     private bool isTerrified = false;
     private Vector2 velocity;
     private Rigidbody2D enemyBody;
-    public CharacterSwap characterSwap;
+    public CharacterManager characterManager;
 
     // Audio
     public AudioSource enemyStomp;
@@ -37,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
     void RunAway()
     {
         enemyBody.MovePosition(enemyBody.position + velocity * 2 * Time.fixedDeltaTime);
-        float distanceFromBowser = Vector3.Distance(characterSwap.activeCharacter.transform.position, enemyBody.transform.position);
+        float distanceFromBowser = Vector3.Distance(characterManager.activeCharacter.transform.position, enemyBody.transform.position);
 
         if (distanceFromBowser < maxOffset)
         {
