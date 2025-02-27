@@ -16,17 +16,13 @@ public class PlayerMovement : MonoBehaviour
     public bool faceLeftState = false;
     private bool moving = false;
     private bool jumpedState = false;
-    public TextMeshProUGUI scoreText;
-    public GameObject enemies;
-    // public JumpOverEnemy jumpOverEnemy;
-    public GameOverScreen gameOverScreen;
     public CharacterManager characterManager;
-    public GameManager gameManager;
+    public GameConstants gameConstants;
+    float deathImpulse;
 
     // for audio
     public AudioSource charaAudio;
     public AudioSource charaDeath;
-    public float deathImpulse = 15;
 
     // state
     [System.NonSerialized]
@@ -39,8 +35,10 @@ public class PlayerMovement : MonoBehaviour
         Application.targetFrameRate = 30;
         charaAnimator.SetBool("onGround", onGroundState);
 
+        deathImpulse = gameConstants.deathImpulse;
+
         // subscribe to scene manager scene change
-        SceneManager.activeSceneChanged += SetStartingPosition;
+        //SceneManager.activeSceneChanged += SetStartingPosition;
     }
 
     // Update is called once per frame
@@ -166,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
                 PlayDeathImpulse();
                 alive = false;
                 Time.timeScale = 0.0f;
-                gameManager.GameOver();
+                GameManager.instance.GameOver();
             }
         }
     }

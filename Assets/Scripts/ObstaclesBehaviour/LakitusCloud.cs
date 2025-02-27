@@ -9,9 +9,17 @@ public class LakitusCloud : MonoBehaviour
     public float descendSpeed = 6.0f;
     public float lowestYPos = 2.0f;
     private bool isDescending = false;
+    private Vector3 startPosition;
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(GameStart);
+    }
+
     void Start()
     {
         cloudBody = GetComponent<Rigidbody2D>();
+        startPosition = transform.localPosition;
     }
 
     void FixedUpdate()
@@ -21,20 +29,6 @@ public class LakitusCloud : MonoBehaviour
             transform.position += Vector3.down * descendSpeed * Time.fixedDeltaTime;
         }
     }
-
-    // void OnCollisionEnter2D(Collision2D other)
-    // {
-    //     if (other.gameObject.name == "Bowser")
-    //     {
-    //         isDescending = true;
-    //     }
-    // }
-
-    // void OnCollisionExit2D(Collision2D collision)
-    // {
-    //     isDescending = false;
-    //     cloudBody.linearVelocityY = 0f;
-    // }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -48,5 +42,10 @@ public class LakitusCloud : MonoBehaviour
     {
         isDescending = false;
         cloudBody.linearVelocityY = 0f;
+    }
+
+    public void GameStart()
+    {
+        transform.localPosition = startPosition;
     }
 }

@@ -5,14 +5,16 @@ using TMPro;
 public class GameOverScreen : MonoBehaviour
 {
     public TextMeshProUGUI finalScoreText;
-    public GameManager gameManager;
-    public void Setup(string text)
+    public TextMeshProUGUI highScoreText;
+
+    public void Setup(string finalScore, string highScore)
     {
-        finalScoreText.text = text;
+        finalScoreText.text = finalScore;
+        highScoreText.text = highScore;
     }
 
     public void ResetButtonCallback(int input)
     {
-        gameManager.gameRestart.Invoke();
+        GameManager.instance.gameRestart.Invoke();
     }
 }

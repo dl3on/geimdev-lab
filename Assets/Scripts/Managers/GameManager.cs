@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -12,13 +10,15 @@ public class GameManager : Singleton<GameManager>
     public UnityEvent<int> scoreChange;
     public UnityEvent gameOver;
     public Transform gameCamera;
-
-    private int score = 0;
+    public IntVariable gameScore;
+    public AudioSource bgm;
 
     void Start()
     {
         gameStart.Invoke();
         Time.timeScale = 1.0f;
+        // subscribe to scene manager scene change
+        SceneManager.activeSceneChanged += SceneSetup;
     }
 
     // Update is called once per frame
@@ -27,22 +27,32 @@ public class GameManager : Singleton<GameManager>
 
     }
 
+    public void SceneSetup(Scene current, Scene next)
+    {
+        gameCamera = Camera.main != null ? Camera.main.transform : null;
+        gameStart.Invoke();
+        SetScore(gameScore.Value);
+    }
+
     public void GameRestart()
     {
         // reset camera
         gameCamera.position = new Vector3(5.12f, 5.6f, -10);
 
+        // reset bgm
+        bgm.Play();
+
         // reset score
-        score = 0;
-        SetScore(score);
+        gameScore.Value = 0;
+        SetScore(gameScore.Value);
         gameRestart.Invoke();
         Time.timeScale = 1.0f;
     }
 
     public void IncreaseScore(int increment)
     {
-        score += increment;
-        SetScore(score);
+        gameScore.ApplyChange(increment);
+        SetScore(gameScore.Value);
     }
 
     public void SetScore(int score)
@@ -50,10 +60,10 @@ public class GameManager : Singleton<GameManager>
         scoreChange.Invoke(score);
     }
 
-
     public void GameOver()
     {
         Time.timeScale = 0.0f;
+        bgm.Stop();
         gameOver.Invoke();
     }
 }

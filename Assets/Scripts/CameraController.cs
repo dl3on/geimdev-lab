@@ -22,7 +22,6 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        characterManager = CharacterManager.instance;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         // get coordinate of the bottomleft of the viewport
         // z doesn't matter since the camera is orthographic

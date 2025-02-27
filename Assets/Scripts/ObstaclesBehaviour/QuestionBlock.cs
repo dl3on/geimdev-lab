@@ -8,6 +8,12 @@ public class QuestionBlock : MonoBehaviour
     public Animator blockAnimator;
     public Coin coin;
     public bool claimed;
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(GameStart);
+    }
+
     void Start()
     {
         blockAnimator = GetComponent<Animator>();
@@ -22,5 +28,13 @@ public class QuestionBlock : MonoBehaviour
             blockAnimator.SetTrigger("hit");
             coin.PopCoin();
         }
+    }
+
+    public void GameStart()
+    {
+        claimed = false;
+
+        blockAnimator.Rebind();
+        blockAnimator.Update(0);
     }
 }

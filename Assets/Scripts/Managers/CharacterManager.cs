@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Audio;
+using System.Collections;
 
-public class CharacterManager : Singleton<CharacterManager>
+public class CharacterManager : MonoBehaviour
 {
     public GameObject mario;
     public GameObject bowser;
@@ -17,6 +18,17 @@ public class CharacterManager : Singleton<CharacterManager>
     public AudioMixer mixer;
     private AudioMixerSnapshot marioSnapshot;
     private AudioMixerSnapshot bowserSnapshot;
+
+    // Bowser powerup limits
+    private bool canSwitchToBowser = true;
+    private bool isBowser = false;
+    private float bowserDuration = 20f;
+    private float cooldownDuration = 20f;
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(GameRestart);
+    }
 
     void Start()
     {
@@ -46,7 +58,7 @@ public class CharacterManager : Singleton<CharacterManager>
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("b") && activePlayerMovement.onGroundState)
+        if (Input.GetKeyDown("b") && activePlayerMovement.onGroundState && canSwitchToBowser)
         {
             SwapCharacter();
         }
@@ -60,14 +72,17 @@ public class CharacterManager : Singleton<CharacterManager>
         activeCharacter.SetActive(false);
 
         // Switch characters    
-        if (activeCharacter == mario)
+        if (activeCharacter == mario && canSwitchToBowser)
         {
             activeCharacter = bowser;
             marioInput.enabled = false;
             bowserInput.enabled = true;
             currPos.y += 2.0f;
             bowserSnapshot.TransitionTo(0.5f);
+            isBowser = true;
+            canSwitchToBowser = false;
             Debug.Log("Bowser Mode!");
+            StartCoroutine(BowserModeTimer());
         }
         else
         {
@@ -75,6 +90,7 @@ public class CharacterManager : Singleton<CharacterManager>
             marioInput.enabled = true;
             bowserInput.enabled = false;
             marioSnapshot.TransitionTo(0.5f);
+            isBowser = false;
             Debug.Log("Mario Mode!");
         }
         activeCharacter.transform.position = currPos;
@@ -109,6 +125,25 @@ public class CharacterManager : Singleton<CharacterManager>
         // animator.Rebind();
         // animator.Update(0);
         // animator.enabled = true;
+    }
+
+    IEnumerator BowserModeTimer()
+    {
+        yield return new WaitForSeconds(bowserDuration);
+
+        if (isBowser)
+        {
+            SwapCharacter();
+            StartCoroutine(BowserCooldown());
+        }
+    }
+
+    IEnumerator BowserCooldown()
+    {
+        Debug.Log("Bowser Mode on cooldown: 20s!");
+        yield return new WaitForSeconds(cooldownDuration);
+        canSwitchToBowser = true;
+        Debug.Log("Bowser Mode is available!");
     }
 
     public void GameRestart()

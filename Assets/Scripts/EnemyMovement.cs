@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    public GameConstants gameConstants;
     private Vector3 startPosition;
     private float originalX;
-    private float maxOffset = 5.0f;
-    private float enemyPatroltime = 2.0f;
+    float maxOffset;
+    float enemyPatroltime;
     private int moveRight = -1;
     private bool isTerrified = false;
     private Vector2 velocity;
     private Rigidbody2D enemyBody;
     public CharacterManager characterManager;
+    public BoxCollider2D childCollider;
 
     // Audio
     public AudioSource enemyStomp;
@@ -23,11 +25,16 @@ public class EnemyMovement : MonoBehaviour
         // get the starting position
         startPosition = transform.localPosition;
         originalX = transform.position.x;
+        maxOffset = gameConstants.maxOffset;
+        enemyPatroltime = gameConstants.enemyPatroltime;
         ComputeVelocity();
     }
     void ComputeVelocity()
     {
+        Debug.Log(maxOffset);
+        Debug.Log(enemyPatroltime);
         velocity = new Vector2(moveRight * maxOffset / enemyPatroltime, 0);
+        Debug.Log(velocity);
     }
     void Movegoomba()
     {
@@ -93,10 +100,14 @@ public class EnemyMovement : MonoBehaviour
 
     public void GameRestart()
     {
+        gameObject.SetActive(true);
         transform.localPosition = startPosition;
         originalX = transform.position.x;
         moveRight = -1;
         isTerrified = false;
+        gameObject.GetComponent<EnemyMovement>().enabled = true;
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        childCollider.enabled = true;
         ComputeVelocity();
     }
 
