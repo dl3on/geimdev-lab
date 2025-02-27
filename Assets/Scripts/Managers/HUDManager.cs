@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
+    public IntVariable gameScore;
+
     private Vector3[] scoreTextPosition = {
         new Vector3(-747, 473, 0),
         new Vector3(0, 0, 0)
@@ -18,7 +18,14 @@ public class HUDManager : MonoBehaviour
     public Transform restartButton;
     public GameObject gameOverPanel;
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        GameManager.instance.gameStart.AddListener(GameStart);
+        GameManager.instance.gameOver.AddListener(GameOver);
+        GameManager.instance.gameRestart.AddListener(GameStart);
+        GameManager.instance.scoreChange.AddListener(SetScore);
+    }
+
     void Start()
     {
     }
@@ -44,9 +51,12 @@ public class HUDManager : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverPanel.GetComponent<GameOverScreen>().Setup(scoreText.GetComponent<TextMeshProUGUI>().text);
+        gameOverPanel.GetComponent<GameOverScreen>().Setup(
+            scoreText.GetComponent<TextMeshProUGUI>().text,
+            "TOP- " + gameScore.previousHighestValue.ToString("D6")
+            );
+
+        // show
         gameOverPanel.SetActive(true);
-        // scoreText.transform.localPosition = scoreTextPosition[1];
-        // restartButton.localPosition = restartButtonPosition[1];
     }
 }

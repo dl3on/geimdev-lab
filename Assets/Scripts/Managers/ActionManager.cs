@@ -6,12 +6,8 @@ using UnityEngine.InputSystem;
 public class ActionManager : MonoBehaviour
 {
     public UnityEvent jump;
-    public UnityEvent jump2;
     public UnityEvent jumpHold;
-    public UnityEvent jumpHold2;
     public UnityEvent<int> moveCheck;
-    public UnityEvent<int> moveCheck2;
-    public CharacterSwap characterSwap;
 
     public void OnJumpHoldAction(InputAction.CallbackContext context)
     {
@@ -21,10 +17,7 @@ public class ActionManager : MonoBehaviour
         {
             Debug.Log("JumpHold was performed");
             Debug.Log(context.duration);
-            if (characterSwap.activeCharacter.name == "Mario")
-                jumpHold.Invoke();
-            else
-                jumpHold2.Invoke();
+            jumpHold.Invoke();
         }
         else if (context.canceled)
             Debug.Log("JumpHold was cancelled");
@@ -37,10 +30,7 @@ public class ActionManager : MonoBehaviour
             Debug.Log("Jump was started");
         else if (context.performed)
         {
-            if (characterSwap.activeCharacter.name == "Mario")
-                jump.Invoke();
-            else
-                jump2.Invoke();
+            jump.Invoke();
             Debug.Log("Jump was performed");
         }
         else if (context.canceled)
@@ -56,19 +46,12 @@ public class ActionManager : MonoBehaviour
         {
             Debug.Log("move started");
             int faceRight = context.ReadValue<float>() > 0 ? 1 : -1;
-
-            if (characterSwap.activeCharacter.name == "Mario")
-                moveCheck.Invoke(faceRight);
-            else
-                moveCheck2.Invoke(faceRight);
+            moveCheck.Invoke(faceRight);
         }
         if (context.canceled)
         {
             Debug.Log("move stopped");
-            if (characterSwap.activeCharacter.name == "Mario")
-                moveCheck.Invoke(0);
-            else
-                moveCheck2.Invoke(0);
+            moveCheck.Invoke(0);
         }
 
     }
@@ -91,8 +74,6 @@ public class ActionManager : MonoBehaviour
         {
             Vector2 point = context.ReadValue<Vector2>();
             Debug.Log($"Point detected: {point}");
-
         }
     }
-
 }

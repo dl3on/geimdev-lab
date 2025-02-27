@@ -5,7 +5,12 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public LakitusCloud lakitusCloud;
-    // Start is called before the first frame update
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(GameRestart);
+    }
+
     void Start()
     {
 

@@ -7,6 +7,12 @@ public class Coin : MonoBehaviour
 {
     public Animator coinAnimator;
     public AudioSource coinAudio;
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(GameStart);
+    }
+
     void Start()
     {
         coinAnimator = GetComponent<Animator>();
@@ -31,6 +37,13 @@ public class Coin : MonoBehaviour
     IEnumerator DisableAfterSound()
     {
         yield return new WaitForSeconds(coinAudio.clip.length);  // Wait for sound to finish
+        gameObject.SetActive(false);
+    }
+
+    public void GameStart()
+    {
+        coinAnimator.Rebind();
+        coinAnimator.Update(0);
         gameObject.SetActive(false);
     }
 }

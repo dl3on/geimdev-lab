@@ -6,6 +6,12 @@ using TMPro;
 public class BrickEmpty : MonoBehaviour
 {
     public Animator blockAnimator;
+
+    void Awake()
+    {
+        GameManager.instance.gameRestart.AddListener(GameStart);
+    }
+
     void Start()
     {
         blockAnimator = GetComponent<Animator>();
@@ -17,5 +23,10 @@ public class BrickEmpty : MonoBehaviour
         {
             blockAnimator.SetTrigger("hit");
         }
+    }
+
+    public void GameStart()
+    {
+        // nothing as of now
     }
 }
