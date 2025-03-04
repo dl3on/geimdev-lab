@@ -22,8 +22,8 @@ public class CharacterManager : MonoBehaviour
     // Bowser powerup limits
     private bool canSwitchToBowser = true;
     private bool isBowser = false;
-    private float bowserDuration = 20f;
-    private float cooldownDuration = 20f;
+    private float bowserDuration = 3;
+    private float cooldownDuration = 3f;
 
     void Awake()
     {
@@ -58,18 +58,56 @@ public class CharacterManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("b") && activePlayerMovement.onGroundState && canSwitchToBowser)
+        if (Input.GetKeyDown("b") && activePlayerMovement.onGroundState && (activeCharacter == mario) && canSwitchToBowser)
         {
-            SwapCharacter();
+            StartCoroutine(PlaySwitchAnimationAndSwap());
         }
+    }
+
+    IEnumerator PlaySwitchAnimationAndSwap()
+    {
+        Animator animator = activeCharacter.GetComponent<Animator>();
+        Rigidbody2D rb = activeCharacter.GetComponent<Rigidbody2D>();
+        Debug.Log(activeCharacter.name);
+
+        if (activeCharacter == mario)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            animator.Play("switchToBowser", 0, 0f);
+        }
+        else
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            animator.Play("switchToMario", 0, 0f);
+        }
+
+        // Wait for the animation duration before swapping
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    }
+
+    public void OnSwitchAnimationComplete()
+    {
+        Rigidbody2D rb = activeCharacter.GetComponent<Rigidbody2D>();
+
+        SwapCharacter();
+        if (activeCharacter == bowser)
+        {
+            mario.SetActive(false);
+        }
+        else if (activeCharacter == mario)
+        {
+            bowser.SetActive(false);
+        }
+
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     void SwapCharacter()
     {
         // get current position
-        Vector3 currPos = activeCharacter.transform.position;
+        Vector3 currPos = activeCharacter.transform.localPosition;
 
-        activeCharacter.SetActive(false);
+        //activeCharacter.SetActive(false);
 
         // Switch characters    
         if (activeCharacter == mario && canSwitchToBowser)
@@ -77,7 +115,6 @@ public class CharacterManager : MonoBehaviour
             activeCharacter = bowser;
             marioInput.enabled = false;
             bowserInput.enabled = true;
-            currPos.y += 2.0f;
             bowserSnapshot.TransitionTo(0.5f);
             isBowser = true;
             canSwitchToBowser = false;
@@ -86,6 +123,7 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
+            bowser.SetActive(false);
             activeCharacter = mario;
             marioInput.enabled = true;
             bowserInput.enabled = false;
@@ -93,7 +131,7 @@ public class CharacterManager : MonoBehaviour
             isBowser = false;
             Debug.Log("Mario Mode!");
         }
-        activeCharacter.transform.position = currPos;
+        activeCharacter.transform.localPosition = currPos;
 
         faceLeft = activePlayerMovement.faceLeftState ? true : false;
 
@@ -111,7 +149,7 @@ public class CharacterManager : MonoBehaviour
 
         // reset ground state
         activePlayerMovement = activeCharacter.GetComponent<PlayerMovement>();
-        activePlayerMovement.onGroundState = false;
+        //activePlayerMovement.onGroundState = false;
 
         // set face direction
         activePlayerMovement.faceLeftState = faceLeft;
@@ -133,7 +171,7 @@ public class CharacterManager : MonoBehaviour
 
         if (isBowser)
         {
-            SwapCharacter();
+            StartCoroutine(PlaySwitchAnimationAndSwap());
             StartCoroutine(BowserCooldown());
         }
     }

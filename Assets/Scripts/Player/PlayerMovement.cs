@@ -199,4 +199,9 @@ public class PlayerMovement : MonoBehaviour
             characterBody.transform.localPosition = new Vector3(-15f, -10f, 0.0f);
         }
     }
+
+    public void OnSwitchComplete()
+    {
+        characterManager.OnSwitchAnimationComplete();
+    }
 }

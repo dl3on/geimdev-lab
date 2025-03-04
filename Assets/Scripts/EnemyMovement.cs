@@ -31,10 +31,7 @@ public class EnemyMovement : MonoBehaviour
     }
     void ComputeVelocity()
     {
-        Debug.Log(maxOffset);
-        Debug.Log(enemyPatroltime);
         velocity = new Vector2(moveRight * maxOffset / enemyPatroltime, 0);
-        Debug.Log(velocity);
     }
     void Movegoomba()
     {
