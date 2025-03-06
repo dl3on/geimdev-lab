@@ -5,7 +5,6 @@ using TMPro;
 
 public class MarioMode : PlayerMovement
 {
-    //new
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -13,8 +12,14 @@ public class MarioMode : PlayerMovement
         characterBody = GetComponent<Rigidbody2D>();
         characterSprite = GetComponent<SpriteRenderer>();
         charaAnimator = GetComponent<Animator>();
+        charaAnimator.keepAnimatorStateOnDisable = true;
         speed = 10;
         maxSpeed = 20;
         upSpeed = 9;
+    }
+
+    private void OnDisable()
+    {
+        charaAnimator.Play("mario-idle", 0, 0f);
     }
 }

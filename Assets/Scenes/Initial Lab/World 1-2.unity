@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalScoreText: {fileID: 1905121370}
+  highScoreText: {fileID: 0}
 --- !u!114 &28472179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,9 +1035,9 @@ MonoBehaviour:
   onGroundState: 1
   faceLeftState: 0
   characterManager: {fileID: 1059319213}
+  gameConstants: {fileID: 11400000, guid: ebdda6473b642464bb8ee6fe30c1955c, type: 2}
   charaAudio: {fileID: 838493994}
   charaDeath: {fileID: 2134947963}
-  deathImpulse: 15
 --- !u!61 &838493997
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2574,6 +2575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6690f0ae2101224c9f94c5d849a4f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameScore: {fileID: 0}
   scoreText: {fileID: 1988568086}
   restartButton: {fileID: 1775724134}
   gameOverPanel: {fileID: 28472177}
@@ -6312,6 +6314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseIcon: {fileID: -6872827362634045947, guid: 93a2d034e97ccf74cbbcc6ba4566def2, type: 3}
   playIcon: {fileID: 6093434435337493702, guid: 4d6e8b247c84bf048abf862520eae12f, type: 3}
+  pauseScreen: {fileID: 0}
+  bgm: {fileID: 0}
 --- !u!114 &1586575366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16081,9 +16085,9 @@ MonoBehaviour:
   onGroundState: 1
   faceLeftState: 0
   characterManager: {fileID: 1059319213}
+  gameConstants: {fileID: 11400000, guid: ebdda6473b642464bb8ee6fe30c1955c, type: 2}
   charaAudio: {fileID: 2107813471}
   charaDeath: {fileID: 2134947963}
-  deathImpulse: 15
 --- !u!61 &2107813474
 BoxCollider2D:
   m_ObjectHideFlags: 0

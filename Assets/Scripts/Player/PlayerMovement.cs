@@ -1,11 +1,10 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GameObject mario;
-    public GameObject bowser;
     public float speed = 10;
     public float upSpeed = 10;
     public float maxSpeed = 20;
@@ -18,11 +17,15 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpedState = false;
     public CharacterManager characterManager;
     public GameConstants gameConstants;
+    public BoolVariable marioFaceRight;
     float deathImpulse;
 
     // for audio
     public AudioSource charaAudio;
     public AudioSource charaDeath;
+
+    // Event
+    public UnityEvent gameOver;
 
     // state
     [System.NonSerialized]
@@ -67,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (value == -1 && !faceLeftState)
         {
+            updateMarioShouldFaceRight(false);
             faceLeftState = true;
             characterSprite.flipX = true;
             if (characterBody.linearVelocity.x > 0.05f)
@@ -76,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (value == 1 && faceLeftState)
         {
+            updateMarioShouldFaceRight(true);
             faceLeftState = false;
             characterSprite.flipX = false;
 
@@ -135,6 +140,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void Attack()
+    {
+        if (alive && characterManager.activeCharacter.name == "Mario")
+        {
+            MarioStateController marioStateController = GetComponent<MarioStateController>();
+            if (marioStateController != null)
+            {
+                marioStateController.Fire();
+            }
+        }
+    }
+
+    private void updateMarioShouldFaceRight(bool value)
+    {
+        marioFaceRight.SetValue(value);
+    }
+
     int collisionLayerMask = (1 << 3) | (1 << 6) | (1 << 7);
     protected void OnCollisionEnter2D(Collision2D col)
     {
@@ -150,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("StompTrigger") && alive)
         {
-            if (characterManager.activeCharacter == mario)
+            if (characterManager.activeCharacter.name == "Mario")
             {
                 characterBody.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
             }
@@ -159,14 +181,18 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Collided with goomba!");
             Debug.Log(characterManager.activeCharacter.name);
-            if (characterManager.activeCharacter == mario)
+            if (characterManager.activeCharacter.name == "Mario")
             {
-                PlayDeathImpulse();
-                alive = false;
-                Time.timeScale = 0.0f;
-                GameManager.instance.GameOver();
+                OnDamaged();
+                //GameOver();
             }
         }
+    }
+
+    public void OnDamaged()
+    {
+        Debug.Log("Player damaged!");
+        GetComponent<MarioStateController>().SetPowerup(PowerupType.Damage);
     }
 
     void PlayJumpSound()
@@ -182,8 +208,24 @@ public class PlayerMovement : MonoBehaviour
         charaDeath.PlayOneShot(charaDeath.clip);
     }
 
+    public void GameOver()
+    {
+        PlayDeathImpulse();
+        alive = false;
+        Time.timeScale = 0.0f;
+        gameOver.Invoke();
+    }
+
     public void GameRestart()
     {
+        MarioStateController marioStateController = GetComponent<MarioStateController>();
+
+        // Only Mario has this
+        if (marioStateController != null)
+        {
+            marioStateController.GameRestart();
+        }
+
         characterBody.transform.position = new Vector3(0.02f, 1.57f, 0.0f);
         characterBody.linearVelocity = Vector2.zero;
         faceLeftState = false;
@@ -198,5 +240,10 @@ public class PlayerMovement : MonoBehaviour
         {
             characterBody.transform.localPosition = new Vector3(-15f, -10f, 0.0f);
         }
+    }
+
+    public void OnSwitchComplete()
+    {
+        characterManager.OnSwitchAnimationComplete();
     }
 }

@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "fireattack",
+                    "type": "Button",
+                    "id": "9793c174-ece4-40e5-85ea-679a2bcfc460",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -150,6 +159,17 @@
                     "action": "point",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "9e978252-c0af-45d9-81f9-451f034c604b",
+                    "path": "<Keyboard>/z",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";MarioBowserFriends",
+                    "action": "fireattack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

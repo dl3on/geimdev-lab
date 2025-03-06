@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class EnemyMovement : MonoBehaviour
     // Audio
     public AudioSource enemyStomp;
 
+    // Events invoked by enemy
+    public UnityEvent damagePlayer;
+
     void Start()
     {
         enemyBody = GetComponent<Rigidbody2D>();
@@ -31,10 +35,7 @@ public class EnemyMovement : MonoBehaviour
     }
     void ComputeVelocity()
     {
-        Debug.Log(maxOffset);
-        Debug.Log(enemyPatroltime);
         velocity = new Vector2(moveRight * maxOffset / enemyPatroltime, 0);
-        Debug.Log(velocity);
     }
     void Movegoomba()
     {

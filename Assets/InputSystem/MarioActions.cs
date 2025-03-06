@@ -135,6 +135,15 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""fireattack"",
+                    ""type"": ""Button"",
+                    ""id"": ""9793c174-ece4-40e5-85ea-679a2bcfc460"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -236,6 +245,17 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
                     ""action"": ""point"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e978252-c0af-45d9-81f9-451f034c604b"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": "";MarioBowserFriends"",
+                    ""action"": ""fireattack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -266,6 +286,7 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
         m_gameplay_move = m_gameplay.FindAction("move", throwIfNotFound: true);
         m_gameplay_click = m_gameplay.FindAction("click", throwIfNotFound: true);
         m_gameplay_point = m_gameplay.FindAction("point", throwIfNotFound: true);
+        m_gameplay_fireattack = m_gameplay.FindAction("fireattack", throwIfNotFound: true);
     }
 
     ~@MarioActions()
@@ -351,6 +372,7 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_move;
     private readonly InputAction m_gameplay_click;
     private readonly InputAction m_gameplay_point;
+    private readonly InputAction m_gameplay_fireattack;
     /// <summary>
     /// Provides access to input actions defined in input action map "gameplay".
     /// </summary>
@@ -382,6 +404,10 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "gameplay/point".
         /// </summary>
         public InputAction @point => m_Wrapper.m_gameplay_point;
+        /// <summary>
+        /// Provides access to the underlying input action "gameplay/fireattack".
+        /// </summary>
+        public InputAction @fireattack => m_Wrapper.m_gameplay_fireattack;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -423,6 +449,9 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
             @point.started += instance.OnPoint;
             @point.performed += instance.OnPoint;
             @point.canceled += instance.OnPoint;
+            @fireattack.started += instance.OnFireattack;
+            @fireattack.performed += instance.OnFireattack;
+            @fireattack.canceled += instance.OnFireattack;
         }
 
         /// <summary>
@@ -449,6 +478,9 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
             @point.started -= instance.OnPoint;
             @point.performed -= instance.OnPoint;
             @point.canceled -= instance.OnPoint;
+            @fireattack.started -= instance.OnFireattack;
+            @fireattack.performed -= instance.OnFireattack;
+            @fireattack.canceled -= instance.OnFireattack;
         }
 
         /// <summary>
@@ -537,5 +569,12 @@ public partial class @MarioActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPoint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "fireattack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFireattack(InputAction.CallbackContext context);
     }
 }

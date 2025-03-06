@@ -2,13 +2,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     // events
     public UnityEvent gameStart;
-    public UnityEvent gameRestart;
+    //public UnityEvent gameRestart;
     public UnityEvent<int> scoreChange;
-    public UnityEvent gameOver;
     public Transform gameCamera;
     public IntVariable gameScore;
     public AudioSource bgm;
@@ -37,7 +36,7 @@ public class GameManager : Singleton<GameManager>
     public void GameRestart()
     {
         // reset camera
-        gameCamera.position = new Vector3(5.12f, 5.6f, -10);
+        //gameCamera.position = new Vector3(5.12f, 5.6f, -10);
 
         // reset bgm
         bgm.Play();
@@ -45,7 +44,7 @@ public class GameManager : Singleton<GameManager>
         // reset score
         gameScore.Value = 0;
         SetScore(gameScore.Value);
-        gameRestart.Invoke();
+        //gameRestart.Invoke();
         Time.timeScale = 1.0f;
     }
 
@@ -64,6 +63,10 @@ public class GameManager : Singleton<GameManager>
     {
         Time.timeScale = 0.0f;
         bgm.Stop();
-        gameOver.Invoke();
+    }
+
+    public void RequestPowerupEffect()
+    {
+        // maybwe dont need
     }
 }
