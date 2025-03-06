@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class EnemyMovement : MonoBehaviour
 
     // Audio
     public AudioSource enemyStomp;
+
+    // Events invoked by enemy
+    public UnityEvent damagePlayer;
 
     void Start()
     {

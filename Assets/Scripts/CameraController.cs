@@ -18,11 +18,11 @@ public class CameraController : MonoBehaviour
     private float endY;
     private float viewportHalfWidth;
     private float verticalThreshold; // The Y position where the camera starts moving
-    public Transform player;
+    public Vector3 startPosition;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        startPosition = transform.position;
         // get coordinate of the bottomleft of the viewport
         // z doesn't matter since the camera is orthographic
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)); // the z-component is the distance of the resulting plane from the camera 
@@ -56,5 +56,10 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(desiredX, transform.position.y, transform.position.z);
         if (desiredY > startY && desiredY < endY)
             transform.position = new Vector3(transform.position.x, desiredY, transform.position.z);
+    }
+
+    public void GameRestart()
+    {
+        transform.position = startPosition; //new Vector3(5.12f, 5.6f, -10);
     }
 }

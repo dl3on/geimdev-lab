@@ -9,7 +9,7 @@ public class QuestionBoxPowerupController : MonoBehaviour, IPowerupController
 
     void Awake()
     {
-        GameManager.instance.gameRestart.AddListener(GameStart);
+        //GameManager.instance.gameRestart.AddListener(GameStart);
     }
 
     void Start()

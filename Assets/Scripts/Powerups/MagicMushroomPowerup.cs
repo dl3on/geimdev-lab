@@ -9,7 +9,7 @@ public class MagicMushroomPowerup : BasePowerup
 
     void Awake()
     {
-        GameManager.instance.gameRestart.AddListener(GameStart);
+        //GameManager.instance.gameRestart.AddListener(GameStart);
         originalPosition = transform.localPosition;
     }
 
@@ -25,7 +25,7 @@ public class MagicMushroomPowerup : BasePowerup
     {
         if (col.gameObject.CompareTag("Player") && spawned)
         {
-            // TODO: do something when colliding with Player
+            ApplyPowerup(col.gameObject.GetComponent<MonoBehaviour>());
 
             // then destroy powerup (optional)
             DestroyPowerup();
@@ -47,9 +47,6 @@ public class MagicMushroomPowerup : BasePowerup
     {
         spawned = true;
         StartCoroutine(ToDynamic());
-        // GetComponent<BoxCollider2D>().enabled = true;
-        // rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        // rigidBody.AddForce(Vector2.right * 3, ForceMode2D.Impulse); // move to the right
     }
 
     private IEnumerator ToDynamic()
@@ -65,7 +62,14 @@ public class MagicMushroomPowerup : BasePowerup
     // interface implementation
     public override void ApplyPowerup(MonoBehaviour i)
     {
-        // TODO: do something with the object
+        //base.ApplyPowerup(i);
+        // try
+        MarioStateController mario;
+        bool result = i.TryGetComponent<MarioStateController>(out mario);
+        if (result)
+        {
+            mario.SetPowerup((PowerupType)this.type);
+        }
 
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class JumpOverEnemy : MonoBehaviour
 {
@@ -9,12 +10,13 @@ public class JumpOverEnemy : MonoBehaviour
     public Rigidbody2D enemyBody;
     public BoxCollider2D enemyCollider;
 
-    GameManager gameManager;
+    public int parameter;
+    // Events invoked by enemy
+    public UnityEvent<int> increaseScore;
 
-    // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
+        GameManager gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -29,8 +31,7 @@ public class JumpOverEnemy : MonoBehaviour
         {
             Debug.Log("STOMPED BY: " + other.gameObject.name);
             DestroyGoomba();
-            GameManager.instance.IncreaseScore(1); // Increase Score
-
+            increaseScore.Invoke(parameter); // Increase Score
         }
     }
 

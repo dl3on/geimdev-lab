@@ -27,7 +27,7 @@ public class CharacterManager : MonoBehaviour
 
     void Awake()
     {
-        GameManager.instance.gameRestart.AddListener(GameRestart);
+        //GameManager.instance.gameRestart.AddListener(GameRestart);
     }
 
     void Start()
@@ -152,8 +152,9 @@ public class CharacterManager : MonoBehaviour
         //activePlayerMovement.onGroundState = false;
 
         // set face direction
+        SpriteRenderer characterSprite = activeCharacter.GetComponent<SpriteRenderer>();
         activePlayerMovement.faceLeftState = faceLeft;
-        activePlayerMovement.characterSprite.flipX = faceLeft;
+        characterSprite.flipX = faceLeft;
 
         activePlayerMovement.UpdateCharacterReferences(activeCharacter);
 

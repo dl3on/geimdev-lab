@@ -15,6 +15,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void ResetButtonCallback(int input)
     {
-        GameManager.instance.gameRestart.Invoke();
+        //GameManager.instance.gameRestart.Invoke();
     }
 }

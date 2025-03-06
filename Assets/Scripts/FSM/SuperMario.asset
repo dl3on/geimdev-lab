@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786340d4b94818a418e51b0ca7f6892e, type: 3}
+  m_Name: SuperMario
+  m_EditorClassIdentifier: 
+  setupActions:
+  - {fileID: 11400000, guid: 87e58410b2e80494bafa28ceeccf11ed, type: 2}
+  - {fileID: 11400000, guid: ec532646a983d7f449c68bf1c69e6530, type: 2}
+  actions: []
+  eventTriggeredActions: []
+  exitActions: []
+  transitions:
+  - decision: {fileID: 11400000, guid: b9aef4d7a40deb34887394b38edd8073, type: 2}
+    trueState: {fileID: 11400000, guid: c932b6c83034f924eb08384b2128fb16, type: 2}
+    falseState: {fileID: 11400000, guid: 9239b116b34995443b44a8985f6b53e2, type: 2}
+  - decision: {fileID: 11400000, guid: b58c8cca75d67d944b27e9d926bd0581, type: 2}
+    trueState: {fileID: 11400000, guid: 058e21813574021488a42353c3d26e38, type: 2}
+    falseState: {fileID: 11400000, guid: 9239b116b34995443b44a8985f6b53e2, type: 2}
+  sceneGizmoColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

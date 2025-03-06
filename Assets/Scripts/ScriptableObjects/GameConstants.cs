@@ -9,4 +9,7 @@ public class GameConstants : ScriptableObject
     // Goomba
     public float enemyPatroltime;
     public float maxOffset;
+
+    // Fire Mario
+    public int flickerInterval;
 }
